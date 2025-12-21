@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Joker to make logos</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #fff;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            text-align: center;
+        }
+        .container {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            max-width: 600px;
+            width: 90%;
+        }
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        p {
+            font-size: 1.2em;
+            margin-bottom: 20px;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        label {
+            font-weight: bold;
+            text-align: right;
+        }
+        input, textarea, select {
+            padding: 10px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1em;
+            background: rgba(255, 255, 255, 0.8);
+            color: #333;
+        }
+        textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+        button {
+            padding: 15px;
+            background: #28a745;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.2em;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        button:hover {
+            background: #218838;
+        }
+        .price {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #ffd700;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Joker to make logos</h1>
+        <p>خدمات تصميم اللوجو الاحترافية بأسعار مناسبة!</p>
+        <div class="price">سعر الخدمة:  5   ريال</div>
+        <form id="logoForm">
+            <label for="name">اسمك:</label>
+            <input type="text" id="name" required>
+
+            <label for="logoDetails">تفاصيل اللوجو (الألوان، الشكل، إلخ):</label>
+            <textarea id="logoDetails" required></textarea>
+
+            <label for="additionalDetails">تفاصيل إضافية:</label>
+            <textarea id="additionalDetails"></textarea>
+
+            <label for="imageDescription">وصف الصورة (إذا كان هناك صورة تريد إرفاقها، وصفها هنا):</label>
+            <textarea id="imageDescription" placeholder="وصف الصورة أو رابطها إذا أمكن"></textarea>
+
+            <label for="contactNumber">رقم التواصل:</label>
+            <input type="tel" id="contactNumber" required>
+
+            <label for="paymentMethod">طريقة الدفع:</label>
+            <select id="paymentMethod" required>
+                <option value="">اختر طريقة الدفع</option>
+                <option value="فيزا">فيزا</option>
+                <option value="كاش">كاش</option>
+            </select>
+
+            <button type="submit">إرسال الطلب</button>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('logoForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            const name = document.getElementById('name').value;
+            const logoDetails = document.getElementById('logoDetails').value;
+            const additionalDetails = document.getElementById('additionalDetails').value;
+            const imageDescription = document.getElementById('imageDescription').value;
+            const contactNumber = document.getElementById('contactNumber').value;
+            const paymentMethod = document.getElementById('paymentMethod').value;
+            
+            const message = `طلب جديد من ${name}:\nرقم التواصل: ${contactNumber}\nتفاصيل اللوجو: ${logoDetails}\nتفاصيل إضافية: ${additionalDetails}\nوصف الصورة: ${imageDescription}\nطريقة الدفع: ${paymentMethod}`;
+            
+            const whatsappUrl = `https://wa.me/201062306872?text=${encodeURIComponent(message)}`;
+            
+            window.open(whatsappUrl, '_blank');
+        });
+    </script>
+</body>
+</html>
+echo "# Joker-to-make-logos" >> README.md
+git init
+git add .
+git commit -m "first commit"
+git branch -M main
+git remote add origin https://github.com/aboadawi9-ctrl/Joker-to-make-logos.git
+git push -u origin main
