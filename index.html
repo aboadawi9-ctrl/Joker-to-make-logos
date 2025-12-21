@@ -80,29 +80,27 @@
 <body>
     <div class="container">
         <h1>Joker to make logos</h1>
-        <p>خدمات تصميم اللوجو الاحترافية بأسعار مناسبة!</p>
-        <div class="price">سعر الخدمة:  5   ريال</div>
+        <p>خدمات تصميم اللوجو الاحترافية مجانا !</p>
+      
         <form id="logoForm">
             <label for="name">اسمك:</label>
             <input type="text" id="name" required>
 
-            <label for="logoDetails">تفاصيل اللوجو (الألوان، الشكل، إلخ):</label>
+            <label for="logoDetails">مقاس اللوجوا :</label>
+            <textarea id="logoDetails" required></textarea>
+
+            <label for="logoDetails">لون اللوجوا :</label>
+            <textarea id="logoDetails" required></textarea>
+            
+                        <label for="logoDetails">شكل الوجوا (دائري، مربع، مثلث، الخ):</label>
             <textarea id="logoDetails" required></textarea>
 
             <label for="additionalDetails">تفاصيل إضافية:</label>
             <textarea id="additionalDetails"></textarea>
 
-            <label for="imageDescription">وصف الصورة (إذا كان هناك صورة تريد إرفاقها، وصفها هنا):</label>
-            <textarea id="imageDescription" placeholder="وصف الصورة أو رابطها إذا أمكن"></textarea>
-
             <label for="contactNumber">رقم التواصل:</label>
             <input type="tel" id="contactNumber" required>
 
-            <label for="paymentMethod">طريقة الدفع:</label>
-            <select id="paymentMethod" required>
-                <option value="">اختر طريقة الدفع</option>
-                <option value="فيزا">فيزا</option>
-                <option value="كاش">كاش</option>
             </select>
 
             <button type="submit">إرسال الطلب</button>
