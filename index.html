@@ -86,13 +86,13 @@
             <label for="name">اسمك:</label>
             <input type="text" id="name" required>
 
-            <label for="logoDetails">مقاس اللوجوا :</label>
-            <textarea id="logoDetails" required></textarea>
+            <label for="logoSize">مقاس اللوجوا :</label>
+            <textarea id="logoSize" required></textarea>
 
-            <label for="logoDetails">لون اللوجوا :</label>
-            <textarea id="logoDetails" required></textarea>
+            <label for="logoColours">لون اللوجوا :</label>
+            <textarea id="logoColours" required></textarea>
             
-                        <label for="logoDetails">شكل الوجوا (دائري، مربع، مثلث، الخ):</label>
+            <label for="logoDetails">شكل اللوجوا (دائري، مربع، مثلث، الخ):</label>
             <textarea id="logoDetails" required></textarea>
 
             <label for="additionalDetails">تفاصيل إضافية:</label>
@@ -100,9 +100,7 @@
 
             <label for="contactNumber">رقم التواصل:</label>
             <input type="tel" id="contactNumber" required>
-
-            </select>
-
+   
             <button type="submit">إرسال الطلب</button>
         </form>
     </div>
@@ -112,13 +110,13 @@
             event.preventDefault();
             
             const name = document.getElementById('name').value;
+            const logoSize = document.getElementById('logoSize').value;
+            const logoColours = document.getElementById('logoColours').value;
             const logoDetails = document.getElementById('logoDetails').value;
             const additionalDetails = document.getElementById('additionalDetails').value;
-            const imageDescription = document.getElementById('imageDescription').value;
             const contactNumber = document.getElementById('contactNumber').value;
-            const paymentMethod = document.getElementById('paymentMethod').value;
             
-            const message = `طلب جديد من ${name}:\nرقم التواصل: ${contactNumber}\nتفاصيل اللوجو: ${logoDetails}\nتفاصيل إضافية: ${additionalDetails}\nوصف الصورة: ${imageDescription}\nطريقة الدفع: ${paymentMethod}`;
+            const message = `طلب جديد من ${name}:\nرقم التواصل: ${contactNumber}\nمقاس اللوجو: ${logoSize}\nألوان اللوجو: ${logoColours}\nتفاصيل اللوجو: ${logoDetails}\nتفاصيل إضافية: ${additionalDetails}`;
             
             const whatsappUrl = `https://wa.me/201062306872?text=${encodeURIComponent(message)}`;
             
