@@ -92,8 +92,8 @@
             <label for="logoColours">لون اللوجوا :</label>
             <textarea id="logoColours" required></textarea>
             
-            <label for="logoDetails">شكل اللوجوا (دائري، مربع، مثلث، الخ):</label>
-            <textarea id="logoDetails" required></textarea>
+            <label for="logoShape">شكل اللوجوا (دائري، مربع، مثلث، الخ):</label>
+            <textarea id="logoShape" required></textarea>
 
             <label for="additionalDetails">تفاصيل إضافية:</label>
             <textarea id="additionalDetails"></textarea>
@@ -112,11 +112,11 @@
             const name = document.getElementById('name').value;
             const logoSize = document.getElementById('logoSize').value;
             const logoColours = document.getElementById('logoColours').value;
-            const logoDetails = document.getElementById('logoDetails').value;
+            const logoShape = document.getElementById('logoShape').value;
             const additionalDetails = document.getElementById('additionalDetails').value;
             const contactNumber = document.getElementById('contactNumber').value;
             
-            const message = `طلب جديد من ${name}:\nرقم التواصل: ${contactNumber}\nمقاس اللوجو: ${logoSize}\nألوان اللوجو: ${logoColours}\nتفاصيل اللوجو: ${logoDetails}\nتفاصيل إضافية: ${additionalDetails}`;
+            const message = `طلب جديد من ${name}:\nرقم التواصل: ${contactNumber}\nمقاس اللوجو: ${logoSize}\nألوان اللوجو: ${logoColours}\nشكل اللوجو: ${logoShape}\nتفاصيل إضافية: ${additionalDetails}`;
             
             const whatsappUrl = `https://wa.me/201062306872?text=${encodeURIComponent(message)}`;
             
