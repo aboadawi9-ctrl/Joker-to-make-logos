@@ -3,8 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Joker AI 3D Logo Pro</title>
-
+<title>Joker AI 3D Logo Pro - Advanced</title>
 <style>
 body{
     background:linear-gradient(135deg,#000428,#004e92);
@@ -62,10 +61,9 @@ label{
 }
 </style>
 </head>
-
 <body>
 <div class="container">
-<h2>🎨 Joker AI 3D Logo Pro</h2>
+<h2>🎨 Joker AI 3D Logo Pro - Advanced</h2>
 
 <input id="name" placeholder="اسم اللوجو">
 <input id="size" placeholder="المقاس مثال 400x400">
@@ -116,6 +114,32 @@ label{
 <input type="range" id="glowPower" min="0" max="60" value="30">
 </div>
 
+<label>🔀 نوع العنصر الإضافي</label>
+<select id="extraType">
+    <option value="none">لا شيء</option>
+    <option value="text">نص حر</option>
+    <option value="image">صورة</option>
+</select>
+
+<label>🔤 عنصر إضافي (نص أو رابط صورة)</label>
+<input type="text" id="extraInput" placeholder="اكتب النص أو رابط الصورة هنا">
+
+<label>📍 موقع العنصر</label>
+<select id="extraPos">
+    <option value="random">عشوائي</option>
+    <option value="top-left">أعلى يسار</option>
+    <option value="top-right">أعلى يمين</option>
+    <option value="bottom-left">أسفل يسار</option>
+    <option value="bottom-right">أسفل يمين</option>
+    <option value="center">الوسط</option>
+</select>
+
+<label>🔀 وضع العناصر</label>
+<select id="extraLayer">
+    <option value="behind">خلف النص</option>
+    <option value="front">أمام النص</option>
+</select>
+
 <div class="grid">
 <button onclick="generate()">🎨 توليد يدوي</button>
 <button onclick="generateAI()">🤖 AI Design</button>
@@ -132,11 +156,7 @@ const ctx = canvas.getContext("2d");
 const aiShapes = ["circle","square","triangle","diamond","hexagon","star","pill"];
 const aiFonts  = ["Impact","Arial","Verdana","Georgia","Courier New","Tahoma","Trebuchet MS"];
 
-function hash(t){
-    let h=0;
-    for(let i=0;i<t.length;i++) h=t.charCodeAt(i)+(h<<5)-h;
-    return Math.abs(h);
-}
+function hash(t){let h=0;for(let i=0;i<t.length;i++) h=t.charCodeAt(i)+(h<<5)-h;return Math.abs(h);}
 
 function setupCanvas(){
     let s=document.getElementById("size").value.match(/(\d+)x(\d+)/);
@@ -151,37 +171,24 @@ function setupCanvas(){
 function drawShape(type,w,h,o){
     ctx.beginPath();
     switch(type){
-        case "circle":
-            ctx.arc(w/2+o,h/2+o,w/2-35,0,Math.PI*2);break;
-        case "square":
-            ctx.rect(35+o,35+o,w-70,h-70);break;
+        case "circle": ctx.arc(w/2+o,h/2+o,w/2-35,0,Math.PI*2); break;
+        case "square": ctx.rect(35+o,35+o,w-70,h-70); break;
         case "triangle":
-            ctx.moveTo(w/2+o,35+o);
-            ctx.lineTo(35+o,h-35+o);
-            ctx.lineTo(w-35+o,h-35+o);break;
+            ctx.moveTo(w/2+o,35+o); ctx.lineTo(35+o,h-35+o); ctx.lineTo(w-35+o,h-35+o); break;
         case "diamond":
-            ctx.moveTo(w/2+o,30+o);
-            ctx.lineTo(w-30+o,h/2+o);
-            ctx.lineTo(w/2+o,h-30+o);
-            ctx.lineTo(30+o,h/2+o);break;
+            ctx.moveTo(w/2+o,30+o); ctx.lineTo(w-30+o,h/2+o);
+            ctx.lineTo(w/2+o,h-30+o); ctx.lineTo(30+o,h/2+o); break;
         case "hexagon":
             for(let i=0;i<6;i++){
                 let a=Math.PI/3*i;
-                ctx.lineTo(
-                    w/2+Math.cos(a)*(w/2-40)+o,
-                    h/2+Math.sin(a)*(h/2-40)+o
-                );
-            }break;
+                ctx.lineTo(w/2+Math.cos(a)*(w/2-40)+o,h/2+Math.sin(a)*(h/2-40)+o);
+            } break;
         case "star":
             for(let i=0;i<5;i++){
                 let a=i*2*Math.PI/5;
-                ctx.lineTo(
-                    w/2+Math.cos(a)*(w/2-40)+o,
-                    h/2+Math.sin(a)*(h/2-40)+o
-                );
-            }break;
-        case "pill":
-            ctx.roundRect(35+o,80+o,w-70,h-160,100);break;
+                ctx.lineTo(w/2+Math.cos(a)*(w/2-40)+o,h/2+Math.sin(a)*(h/2-40)+o);
+            } break;
+        case "pill": ctx.roundRect(35+o,80+o,w-70,h-160,100); break;
     }
     ctx.closePath();ctx.fill();
 }
@@ -202,61 +209,102 @@ function getFill(w,h){
 function drawLogo(name,w,h,shape,fill,font,glow,depth){
     ctx.shadowColor=fill;
     ctx.shadowBlur=glow;
-
-    for(let i=depth;i>0;i--){
-        ctx.fillStyle="rgba(0,0,0,.05)";
-        drawShape(shape,w,h,i);
-    }
-
-    ctx.fillStyle=fill;
-    drawShape(shape,w,h,0);
-
+    for(let i=depth;i>0;i--){ctx.fillStyle="rgba(0,0,0,.05)";drawShape(shape,w,h,i);}
+    ctx.fillStyle=fill; drawShape(shape,w,h,0);
     ctx.shadowBlur=0;
-    ctx.font="bold "+(w/7)+"px "+font;
-    ctx.fillStyle="#fff";
-    ctx.textAlign="center";
-    ctx.textBaseline="middle";
-
-    for(let i=depth/2;i>0;i--){
-        ctx.fillStyle="rgba(0,0,0,.3)";
-        ctx.fillText(name,w/2+i,h/2+i);
-    }
-
-    ctx.fillStyle="#fff";
-    ctx.fillText(name,w/2,h/2);
+    ctx.font="bold "+(w/7)+"px "+font; ctx.fillStyle="#fff";
+    ctx.textAlign="center"; ctx.textBaseline="middle";
+    for(let i=depth/2;i>0;i--){ctx.fillStyle="rgba(0,0,0,.3)"; ctx.fillText(name,w/2+i,h/2+i);}
+    ctx.fillStyle="#fff"; ctx.fillText(name,w/2,h/2);
 }
 
-function generate(){
+async function drawExtraElement(type, content, w, h, layer, pos){
+    if(type === "none" || !content) return;
+
+    const positions = {
+        "top-left": {x: w*0.1, y: h*0.1},
+        "top-right": {x: w*0.9, y: h*0.1},
+        "bottom-left": {x: w*0.1, y: h*0.9},
+        "bottom-right": {x: w*0.9, y: h*0.9},
+        "center": {x: w/2, y: h/2},
+        "random": null
+    };
+
+    const count = type === "text" ? 5 : 1; 
+    for(let i=0;i<count;i++){
+        let x, y;
+        if(pos === "random" || !positions[pos]){
+            x = Math.random()*(w-50);
+            y = Math.random()*(h-50);
+        } else {
+            x = positions[pos].x;
+            y = positions[pos].y;
+        }
+
+        if(type === "text"){
+            const fontSize = 20 + Math.random()*50;
+            ctx.font = fontSize+"px Arial";
+            ctx.fillStyle = `rgba(255,255,255,${0.3 + Math.random()*0.7})`;
+            ctx.textAlign = "center";
+            ctx.textBaseline = "middle";
+            ctx.fillText(content, x, y);
+        } else if(type === "image"){
+            try{
+                const img = new Image();
+                img.src = content;
+                await img.decode();
+                const imgW = w*0.3;
+                const imgH = h*0.3;
+                ctx.drawImage(img, x-imgW/2, y-imgH/2, imgW, imgH);
+            } catch(e){
+                console.log("فشل تحميل الصورة:", e);
+            }
+        }
+    }
+}
+
+async function generate(){
     let name=document.getElementById("name").value||"JOKER";
     let {w,h}=setupCanvas();
     let shape=document.getElementById("shape").value;
     let font=document.getElementById("font").value;
     let glow=document.getElementById("glowPower").value;
     let depth=document.getElementById("depth3d").value;
+    let extraType = document.getElementById("extraType").value;
+    let extraInput = document.getElementById("extraInput").value;
+    let extraPos = document.getElementById("extraPos").value;
+    let layer=document.getElementById("extraLayer").value;
 
     if(shape==="auto") shape="circle";
     if(font==="auto") font="Impact";
 
     let fill=getFill(w,h);
+
+    if(layer==="behind") await drawExtraElement(extraType, extraInput, w, h, "behind", extraPos);
     drawLogo(name,w,h,shape,fill,font,glow,depth);
+    if(layer==="front") await drawExtraElement(extraType, extraInput, w, h, "front", extraPos);
 }
 
-function generateAI(){
+async function generateAI(){
     let name=document.getElementById("name").value||"JOKER";
     let {w,h}=setupCanvas();
     let hsh=hash(name);
-
     let shapeSel=document.getElementById("shape").value;
     let fontSel=document.getElementById("font").value;
-
     let shape=shapeSel==="auto"?aiShapes[hsh%aiShapes.length]:shapeSel;
     let font=fontSel==="auto"?aiFonts[hsh%aiFonts.length]:fontSel;
-
     let glow=document.getElementById("glowPower").value;
     let depth=document.getElementById("depth3d").value;
+    let extraType = document.getElementById("extraType").value;
+    let extraInput = document.getElementById("extraInput").value;
+    let extraPos = document.getElementById("extraPos").value;
+    let layer=document.getElementById("extraLayer").value;
 
     let fill=getFill(w,h);
+
+    if(layer==="behind") await drawExtraElement(extraType, extraInput, w, h, "behind", extraPos);
     drawLogo(name,w,h,shape,fill,font,glow,depth);
+    if(layer==="front") await drawExtraElement(extraType, extraInput, w, h, "front", extraPos);
 }
 
 document.getElementById("download").onclick=()=>{
