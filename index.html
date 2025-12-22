@@ -1,127 +1,270 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Joker to make logos</title>
-    <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: #fff;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            text-align: center;
-        }
-        .container {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border-radius: 15px;
-            padding: 30px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-            max-width: 600px;
-            width: 90%;
-        }
-        h1 {
-            font-size: 2.5em;
-            margin-bottom: 10px;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-        }
-        p {
-            font-size: 1.2em;
-            margin-bottom: 20px;
-        }
-        form {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-        label {
-            font-weight: bold;
-            text-align: right;
-        }
-        input, textarea, select {
-            padding: 10px;
-            border: none;
-            border-radius: 8px;
-            font-size: 1em;
-            background: rgba(255, 255, 255, 0.8);
-            color: #333;
-        }
-        textarea {
-            resize: vertical;
-            min-height: 80px;
-        }
-        button {
-            padding: 15px;
-            background: #28a745;
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-size: 1.2em;
-            cursor: pointer;
-            transition: background 0.3s;
-        }
-        button:hover {
-            background: #218838;
-        }
-        .price {
-            font-size: 1.5em;
-            font-weight: bold;
-            color: #ffd700;
-            margin-bottom: 20px;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Joker AI 3D Logo Pro</title>
+
+<style>
+body{
+    background:linear-gradient(135deg,#000428,#004e92);
+    color:#fff;
+    font-family:Arial;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    min-height:100vh;
+    margin:0;
+}
+.container{
+    background:rgba(255,255,255,.12);
+    backdrop-filter:blur(12px);
+    padding:20px;
+    border-radius:15px;
+    width:95%;
+    max-width:700px;
+}
+input,select,button{
+    width:100%;
+    padding:10px;
+    margin:5px 0;
+    border-radius:8px;
+    border:none;
+    font-size:1em;
+}
+button{
+    background:#00ffd5;
+    font-weight:bold;
+    cursor:pointer;
+}
+canvas{
+    display:none;
+    margin-top:15px;
+    border-radius:12px;
+    border:2px solid #fff;
+}
+#download{
+    display:none;
+    background:#ffd700;
+}
+.grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:6px;
+}
+label{
+    font-size:.9em;
+}
+.range{
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+</style>
 </head>
+
 <body>
-    <div class="container">
-        <h1>Joker to make logos</h1>
-        <p>خدمات تصميم اللوجو الاحترافية مجانا !</p>
-      
-        <form id="logoForm">
-            <label for="name">اسمك:</label>
-            <input type="text" id="name" required>
+<div class="container">
+<h2>🎨 Joker AI 3D Logo Pro</h2>
 
-            <label for="logoSize">مقاس اللوجوا :</label>
-            <textarea id="logoSize" required></textarea>
+<input id="name" placeholder="اسم اللوجو">
+<input id="size" placeholder="المقاس مثال 400x400">
 
-            <label for="logoColours">لون اللوجوا :</label>
-            <textarea id="logoColours" required></textarea>
-            
-            <label for="logoShape">شكل اللوجوا (دائري، مربع، مثلث، الخ):</label>
-            <textarea id="logoShape" required></textarea>
+<div class="grid">
+<select id="shape">
+    <option value="auto">🤖 شكل AI</option>
+    <option value="circle">دائري</option>
+    <option value="square">مربع</option>
+    <option value="triangle">مثلث</option>
+    <option value="diamond">معين</option>
+    <option value="hexagon">سداسي</option>
+    <option value="star">نجمة</option>
+    <option value="pill">بيضاوي</option>
+</select>
 
-            <label for="additionalDetails">تفاصيل إضافية:</label>
-            <textarea id="additionalDetails"></textarea>
+<select id="font">
+    <option value="auto">🤖 خط AI</option>
+    <option>Impact</option>
+    <option>Arial</option>
+    <option>Verdana</option>
+    <option>Georgia</option>
+    <option>Courier New</option>
+    <option>Tahoma</option>
+    <option>Trebuchet MS</option>
+    <option>Times New Roman</option>
+</select>
+</div>
 
-            <label for="contactNumber">رقم التواصل:</label>
-            <input type="tel" id="contactNumber" required>
-   
-            <button type="submit">إرسال الطلب</button>
-        </form>
-    </div>
+<select id="colorMode">
+    <option value="solid">🎨 لون واحد</option>
+    <option value="gradient">🌈 تدرج لونين</option>
+</select>
 
-    <script>
-        document.getElementById('logoForm').addEventListener('submit', function(event) {
-            event.preventDefault();
-            
-            const name = document.getElementById('name').value;
-            const logoSize = document.getElementById('logoSize').value;
-            const logoColours = document.getElementById('logoColours').value;
-            const logoShape = document.getElementById('logoShape').value;
-            const additionalDetails = document.getElementById('additionalDetails').value;
-            const contactNumber = document.getElementById('contactNumber').value;
-            
-            const message = `طلب جديد من ${name}:\nرقم التواصل: ${contactNumber}\nمقاس اللوجو: ${logoSize}\nألوان اللوجو: ${logoColours}\nشكل اللوجو: ${logoShape}\nتفاصيل إضافية: ${additionalDetails}`;
-            
-            const whatsappUrl = `https://wa.me/201062306872?text=${encodeURIComponent(message)}`;
-            
-            window.open(whatsappUrl, '_blank');
-        });
-    </script>
+<label>🎨 لون 1</label>
+<input type="color" id="color1" value="#ff004c">
+
+<label>🎨 لون 2 (للتدرج)</label>
+<input type="color" id="color2" value="#00ffd5">
+
+<div class="range">
+<label>🧊 عمق 3D</label>
+<input type="range" id="depth3d" min="0" max="30" value="12">
+</div>
+
+<div class="range">
+<label>✨ قوة الـ Glow</label>
+<input type="range" id="glowPower" min="0" max="60" value="30">
+</div>
+
+<div class="grid">
+<button onclick="generate()">🎨 توليد يدوي</button>
+<button onclick="generateAI()">🤖 AI Design</button>
+</div>
+
+<canvas id="canvas"></canvas>
+<button id="download">تحميل اللوجو</button>
+</div>
+
+<script>
+const canvas = document.getElementById("canvas");
+const ctx = canvas.getContext("2d");
+
+const aiShapes = ["circle","square","triangle","diamond","hexagon","star","pill"];
+const aiFonts  = ["Impact","Arial","Verdana","Georgia","Courier New","Tahoma","Trebuchet MS"];
+
+function hash(t){
+    let h=0;
+    for(let i=0;i<t.length;i++) h=t.charCodeAt(i)+(h<<5)-h;
+    return Math.abs(h);
+}
+
+function setupCanvas(){
+    let s=document.getElementById("size").value.match(/(\d+)x(\d+)/);
+    let w=s?+s[1]:400,h=s?+s[2]:400;
+    canvas.width=w;canvas.height=h;
+    canvas.style.display="block";
+    document.getElementById("download").style.display="block";
+    ctx.clearRect(0,0,w,h);
+    return {w,h};
+}
+
+function drawShape(type,w,h,o){
+    ctx.beginPath();
+    switch(type){
+        case "circle":
+            ctx.arc(w/2+o,h/2+o,w/2-35,0,Math.PI*2);break;
+        case "square":
+            ctx.rect(35+o,35+o,w-70,h-70);break;
+        case "triangle":
+            ctx.moveTo(w/2+o,35+o);
+            ctx.lineTo(35+o,h-35+o);
+            ctx.lineTo(w-35+o,h-35+o);break;
+        case "diamond":
+            ctx.moveTo(w/2+o,30+o);
+            ctx.lineTo(w-30+o,h/2+o);
+            ctx.lineTo(w/2+o,h-30+o);
+            ctx.lineTo(30+o,h/2+o);break;
+        case "hexagon":
+            for(let i=0;i<6;i++){
+                let a=Math.PI/3*i;
+                ctx.lineTo(
+                    w/2+Math.cos(a)*(w/2-40)+o,
+                    h/2+Math.sin(a)*(h/2-40)+o
+                );
+            }break;
+        case "star":
+            for(let i=0;i<5;i++){
+                let a=i*2*Math.PI/5;
+                ctx.lineTo(
+                    w/2+Math.cos(a)*(w/2-40)+o,
+                    h/2+Math.sin(a)*(h/2-40)+o
+                );
+            }break;
+        case "pill":
+            ctx.roundRect(35+o,80+o,w-70,h-160,100);break;
+    }
+    ctx.closePath();ctx.fill();
+}
+
+function getFill(w,h){
+    let mode=document.getElementById("colorMode").value;
+    let c1=document.getElementById("color1").value;
+    let c2=document.getElementById("color2").value;
+    if(mode==="gradient"){
+        let g=ctx.createLinearGradient(0,0,w,h);
+        g.addColorStop(0,c1);
+        g.addColorStop(1,c2);
+        return g;
+    }
+    return c1;
+}
+
+function drawLogo(name,w,h,shape,fill,font,glow,depth){
+    ctx.shadowColor=fill;
+    ctx.shadowBlur=glow;
+
+    for(let i=depth;i>0;i--){
+        ctx.fillStyle="rgba(0,0,0,.05)";
+        drawShape(shape,w,h,i);
+    }
+
+    ctx.fillStyle=fill;
+    drawShape(shape,w,h,0);
+
+    ctx.shadowBlur=0;
+    ctx.font="bold "+(w/7)+"px "+font;
+    ctx.fillStyle="#fff";
+    ctx.textAlign="center";
+    ctx.textBaseline="middle";
+
+    for(let i=depth/2;i>0;i--){
+        ctx.fillStyle="rgba(0,0,0,.3)";
+        ctx.fillText(name,w/2+i,h/2+i);
+    }
+
+    ctx.fillStyle="#fff";
+    ctx.fillText(name,w/2,h/2);
+}
+
+function generate(){
+    let name=document.getElementById("name").value||"JOKER";
+    let {w,h}=setupCanvas();
+    let shape=document.getElementById("shape").value;
+    let font=document.getElementById("font").value;
+    let glow=document.getElementById("glowPower").value;
+    let depth=document.getElementById("depth3d").value;
+
+    if(shape==="auto") shape="circle";
+    if(font==="auto") font="Impact";
+
+    let fill=getFill(w,h);
+    drawLogo(name,w,h,shape,fill,font,glow,depth);
+}
+
+function generateAI(){
+    let name=document.getElementById("name").value||"JOKER";
+    let {w,h}=setupCanvas();
+    let hsh=hash(name);
+
+    let shapeSel=document.getElementById("shape").value;
+    let fontSel=document.getElementById("font").value;
+
+    let shape=shapeSel==="auto"?aiShapes[hsh%aiShapes.length]:shapeSel;
+    let font=fontSel==="auto"?aiFonts[hsh%aiFonts.length]:fontSel;
+
+    let glow=document.getElementById("glowPower").value;
+    let depth=document.getElementById("depth3d").value;
+
+    let fill=getFill(w,h);
+    drawLogo(name,w,h,shape,fill,font,glow,depth);
+}
+
+document.getElementById("download").onclick=()=>{
+    let a=document.createElement("a");
+    a.download="joker-ai-3d-logo.png";
+    a.href=canvas.toDataURL();
+    a.click();
+};
+</script>
 </body>
 </html>
