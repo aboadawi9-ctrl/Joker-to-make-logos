@@ -42,9 +42,10 @@ canvas{
     border-radius:12px;
     border:2px solid #fff;
 }
-#download{
+#download, #clearCanvas{
     display:none;
     background:#ffd700;
+    margin-top:10px;
 }
 .grid{
     display:grid;
@@ -118,7 +119,7 @@ label{
 <select id="extraType">
     <option value="none">لا شيء</option>
     <option value="text">نص حر</option>
-    <option value="image">صورة</option>
+    <option value="image">صورة من كلمة</option>
 </select>
 
 <label>🔤 عنصر إضافي (نص أو كلمة لتوليد صورة)</label>
@@ -145,6 +146,7 @@ label{
 <button onclick="generateAI()">🤖 AI Design</button>
 </div>
 
+<button id="clearCanvas" onclick="clearCanvasFunc()">🧹 مسح الكانفس</button>
 <canvas id="canvas"></canvas>
 <button id="download">تحميل اللوجو</button>
 </div>
@@ -164,8 +166,24 @@ function setupCanvas(){
     canvas.width=w;canvas.height=h;
     canvas.style.display="block";
     document.getElementById("download").style.display="block";
+    document.getElementById("clearCanvas").style.display="block";
     ctx.clearRect(0,0,w,h);
     return {w,h};
+}
+
+function drawRoundedRect(x, y, width, height, radius){
+    ctx.beginPath();
+    ctx.moveTo(x + radius, y);
+    ctx.lineTo(x + width - radius, y);
+    ctx.quadraticCurveTo(x + width, y, x + width, y + radius);
+    ctx.lineTo(x + width, y + height - radius);
+    ctx.quadraticCurveTo(x + width, y + height, x + width - radius, y + height);
+    ctx.lineTo(x + radius, y + height);
+    ctx.quadraticCurveTo(x, y + height, x, y + height - radius);
+    ctx.lineTo(x, y + radius);
+    ctx.quadraticCurveTo(x, y, x + radius, y);
+    ctx.closePath();
+    ctx.fill();
 }
 
 function drawShape(type,w,h,o){
@@ -188,9 +206,10 @@ function drawShape(type,w,h,o){
                 let a=i*2*Math.PI/5;
                 ctx.lineTo(w/2+Math.cos(a)*(w/2-40)+o,h/2+Math.sin(a)*(h/2-40)+o);
             } break;
-        case "pill": ctx.roundRect(35+o,80+o,w-70,h-160,100); break;
+        case "pill": drawRoundedRect(35+o,80+o,w-70,h-160,100); break;
     }
-    ctx.closePath();ctx.fill();
+    ctx.closePath();
+    ctx.fill();
 }
 
 function getFill(w,h){
@@ -248,8 +267,8 @@ async function drawExtraElement(type, content, w, h, layer, pos){
         ctx.fillText(content, x, y);
     } else if(type === "image"){
         try{
-            const apiKey = "53844191-ad73f544e1ee1a7beeeed3584"; // 🔑 ضع مفتاحك من Unsplash
-            const query = encodeURIComponent(content); 
+            const apiKey = "YOUR_UNSPLASH_API_KEY"; // ضع مفتاحك هنا
+            const query = encodeURIComponent(content);
             const res = await fetch(`https://api.unsplash.com/photos/random?query=${query}&client_id=${apiKey}`);
             const data = await res.json();
             const imgUrl = data.urls.small;
@@ -318,6 +337,10 @@ document.getElementById("download").onclick=()=>{
     a.href=canvas.toDataURL();
     a.click();
 };
+
+function clearCanvasFunc(){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+}
 </script>
 </body>
 </html>
