@@ -267,7 +267,7 @@ async function drawExtraElement(type, content, w, h, layer, pos){
         ctx.fillText(content, x, y);
     } else if(type === "image"){
         try{
-            const apiKey = "YOUR_UNSPLASH_API_KEY"; // ضع مفتاحك هنا
+            const apiKey = "FDoEEQW6SzQWV1qvAWbEIDK9MYqsptM8aadPj8z6NfE"; // ضع مفتاحك هنا
             const query = encodeURIComponent(content);
             const res = await fetch(`https://api.unsplash.com/photos/random?query=${query}&client_id=${apiKey}`);
             const data = await res.json();
@@ -343,4 +343,5 @@ function clearCanvasFunc(){
 }
 </script>
 </body>
+
 </html>
